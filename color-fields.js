@@ -7,16 +7,25 @@ const stringToAsciiSum = (string) => string.split('').reduce(
   0
 );
 
-const colorFields = () => {
+const colorFields = (fieldName) => {
   const badges = document.querySelectorAll('.custom-field-front-badges .badge');
 
   badges.forEach((badge) => {
     const text = badge.innerText;
+    const [name] = text.split(/: /);
+
+    if(name !== fieldName) {
+      return;
+    }
+
     const sum = stringToAsciiSum(text);
     const hue = sum % 360;
 
     badge.style.backgroundColor = `hsl(${hue},${saturation},${brightness})`;
+    badge.classList.add('colored');
   });
 };
 
-colorFields();
+chrome.storage.sync.get('fieldName', ({ fieldName }) => {
+  colorFields(fieldName);
+});

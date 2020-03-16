@@ -2,7 +2,7 @@
   "name": "Trello Custom Fields Colored",
   "version": "1.0",
   "description": "Color coordinates Trello Custom Fields by value",
-  "permissions": ["https://trello.com/"],
+  "permissions": ["storage", "https://trello.com/"],
   "content_scripts": [
     {
       "matches": ["https://trello.com/*"], 
@@ -10,5 +10,6 @@
       "css": ["color-fields.css"]
     }
   ],
+  "options_page": "options.html",
   "manifest_version": 2
 }
