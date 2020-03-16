@@ -1,5 +1,5 @@
 {
-  "name": "Trello Custom Fields Colored",
+  "name": "Trello Colored Custom Fields",
   "version": "1.0",
   "description": "Color coordinates Trello Custom Fields by value",
   "permissions": ["storage", "https://trello.com/"],
