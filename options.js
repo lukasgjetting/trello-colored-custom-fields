@@ -1,8 +1,10 @@
 const input = document.getElementById('fieldName');
 
 chrome.storage.sync.get('fieldName', ({ fieldName }) => {
-  console.log(fieldName);
-  input.value = fieldName;
+  // Set initial value if there is one
+  if(fieldName != null) {
+    input.value = fieldName;
+  }
 });
 
 input.onchange = (event) => {
