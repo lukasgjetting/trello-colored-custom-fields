@@ -7,14 +7,14 @@ const stringToAsciiSum = (string) => string.split('').reduce(
   0
 );
 
-const colorFields = (fieldName) => {
+const colorFields = (fields) => {
   const badges = document.querySelectorAll('.custom-field-front-badges .badge');
 
   badges.forEach((badge) => {
     const text = badge.innerText;
     const [name] = text.split(/: /);
 
-    if(name !== fieldName) {
+    if(fields.length > 0 && !fields.includes(name)) {
       return;
     }
 
@@ -27,6 +27,10 @@ const colorFields = (fieldName) => {
 };
 
 chrome.storage.sync.get('fieldName', ({ fieldName }) => {
+  const fields = (fieldName || '')
+    .split('|')
+    .filter(f => f != '');
+
   MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
   const observer = new MutationObserver(function(mutations, observer) {
@@ -40,7 +44,7 @@ chrome.storage.sync.get('fieldName', ({ fieldName }) => {
       return;
     }
 
-    colorFields(fieldName);
+    colorFields(fields);
   });
 
   observer.observe(document, {
@@ -48,5 +52,6 @@ chrome.storage.sync.get('fieldName', ({ fieldName }) => {
     subtree: true,
   });
 
-  colorFields(fieldName);
+  // Call manually the first time
+  colorFields(fields);
 });
