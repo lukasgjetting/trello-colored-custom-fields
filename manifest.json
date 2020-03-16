@@ -1,0 +1,6 @@
+{
+  "name": "Trello Custom Fields Colored",
+  "version": "1.0",
+  "description": "Color coordinates Trello Custom Fields by value",
+  "manifest_version": 2,
+}
