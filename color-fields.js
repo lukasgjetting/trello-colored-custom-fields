@@ -27,5 +27,26 @@ const colorFields = (fieldName) => {
 };
 
 chrome.storage.sync.get('fieldName', ({ fieldName }) => {
+  MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+  const observer = new MutationObserver(function(mutations, observer) {
+    // Get all card mutations
+    const cardMutations = mutations.filter(
+      (mutation) => mutation.target.className.includes('list-card'),
+    );
+
+    // Don't re-color if no cards were changed
+    if(cardMutations.length === 0) {
+      return;
+    }
+
+    colorFields(fieldName);
+  });
+
+  observer.observe(document, {
+    childList: true,
+    subtree: true,
+  });
+
   colorFields(fieldName);
 });
